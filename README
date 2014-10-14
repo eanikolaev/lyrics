@@ -1,0 +1,7 @@
+Technosfera-mail.ru - Information Retrival - Final Project
+
+extract
+	contain scripts for extracting data using VK API
+
+        extract/get_songs.py  - extract songs, which have lyrics, to songs.csv using VK API
+        extract/read_songs.py - example of reading songs.csv file
