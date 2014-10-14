@@ -6,3 +6,4 @@ collect_data
         Firstly, you should set your VK id and token in collect_data/get_songs.py
         collect_data/get_songs.py  - extract songs, which have lyrics, to songs.csv using VK API
         collect_data/read_songs.py - example of reading songs.csv file
+        collect_data/wordlist.py   - contain list with russian words
