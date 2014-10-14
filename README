@@ -1,7 +1,8 @@
 Technosfera-mail.ru - Information Retrival - Final Project
 
-extract
-	contain scripts for extracting data using VK API
+collect_data
+	contain scripts for collect_dataing data using VK API
 
-        extract/get_songs.py  - extract songs, which have lyrics, to songs.csv using VK API
-        extract/read_songs.py - example of reading songs.csv file
+        Firstly, you should set your VK id and token in collect_data/get_songs.py
+        collect_data/get_songs.py  - extract songs, which have lyrics, to songs.csv using VK API
+        collect_data/read_songs.py - example of reading songs.csv file
