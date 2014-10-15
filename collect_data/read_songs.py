@@ -1,6 +1,6 @@
 """
-	example script
-	shows how to read songs.csv file
+    example script
+    shows how to read songs.csv file
 """
 
 import csv
