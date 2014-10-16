@@ -13,8 +13,7 @@ import csv
 from wordlist import wordlist
 
 # set your token and id here
-TOKEN  = "a1be85978e032db259225d205587c82af140eaa530c76dab74f0d53532db9fedfe57314aea73a0977404d"
-ID     = "88594620"
+TOKEN  = ""
 OUTPUT = "songs.csv"
 
 
