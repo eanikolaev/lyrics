@@ -1,0 +1,20 @@
+.background {
+    background: #f9f9f9;
+}
+
+.results {
+    padding-left: 150px;
+}
+
+.search_field {
+    min-width: 500px;
+    margin-right: 5px;
+}
+
+a {
+    color: #707172;
+}
+
+a:hover {
+    color: #101011;
+}
