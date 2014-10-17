@@ -4,8 +4,9 @@ simple start:
 	1) create your environment: virtualenv <ENV_NAME>
 	2) activate it:             source <ENV_NAME>/bin/activate
 	3) install requirements:    pip install -r requirements.txt
-        4) run django project:      ./manage.py runserver
-        5) open in browser:         http://127.0.0.1:8000
+        4) run init.sh              ./init.sh
+        5) run django project:      ./manage.py runserver
+        6) open in browser:         http://127.0.0.1:8000
 
 lyrics
 	it is main application of django project
