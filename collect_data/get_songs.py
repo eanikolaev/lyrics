@@ -11,6 +11,7 @@ import requests
 import datetime, time
 import csv
 from wordlist import wordlist
+import argparse
 
 # set your token and id here
 TOKEN  = ""
@@ -79,13 +80,35 @@ class VkApi(Api):
         return s
 
 
+def parse_args():
+    """
+    Парсинг аргументов командной строки
+    """
+    c_l_parser = argparse.ArgumentParser(description='Сбор песен')
+    c_l_parser.add_argument('-f', dest='file_with_words', type=str, default='', help='Файл со словами')
+    return c_l_parser.parse_args()
+
+
 def main():    
     api = VkApi(TOKEN)
     csvfile = open(OUTPUT, 'wb')
     writer = csv.writer(csvfile, delimiter=' ', quotechar='|', quoting=csv.QUOTE_MINIMAL)
     song_ids = set()
 
-    for word in wordlist:
+    args = parse_args()
+    file_with_words = args.file_with_words
+
+    # Работа со списком слов
+    if not file_with_words:
+        wl = wordlist
+    else:
+        csvfile_with_words = open(file_with_words, 'rb')
+        reader = csv.reader(csvfile_with_words, delimiter=' ', quotechar='|', quoting=csv.QUOTE_MINIMAL)
+        wl = list()
+        for row in reader:
+            wl.append(row[0])
+
+    for word in wl:
 
         amount_of_repeated_songs = 0
         amount_of_added_songs = 0
