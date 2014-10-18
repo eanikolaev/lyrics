@@ -1,15 +1,17 @@
 Technosfera-mail.ru - Information Retrival - Final Project
 
 simple start:
-	1) create your environment: virtualenv <ENV_NAME>
-	2) activate it:             source <ENV_NAME>/bin/activate
-	3) install requirements:    pip install -r requirements.txt
-        4) run init.sh              ./init.sh
-        5) run django project:      ./manage.py runserver
-        6) open in browser:         http://127.0.0.1:8000
+	1) create your environment:         virtualenv <ENV_NAME>
+	2) activate it:                     source <ENV_NAME>/bin/activate
+	3) install requirements:            pip install -r requirements.txt
+        4) run init.sh                       ./init.sh
+        5) run django project:               ./manage.py runserver
+        6) open in browser:                  http://127.0.0.1:8000
+        7) look at song list representation: http://127.0.0.1:8000/songs/
+        8) look at admin interface:          http://127.0.0.1:8000/admin/
 
 lyrics
-	it is main application of django project
+	it is main application of django project        
        
 
 collect_data
