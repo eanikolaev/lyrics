@@ -1,5 +1,23 @@
+.navbar {
+    margin-bottom: 5px;
+}
+
+.container {
+    margin-left: 0px;
+    width: 600px;    
+}
+
+.well {
+    margin-bottom: 5px;
+    padding-bottom: 0px;
+}
+
 .background {
     background: #f9f9f9;
+}
+
+.result_text {
+    margin-bottom: 10px;
 }
 
 .results {
@@ -7,7 +25,7 @@
 }
 
 .search_field {
-    min-width: 500px;
+    min-width: 600px;
     margin-right: 5px;
 }
 

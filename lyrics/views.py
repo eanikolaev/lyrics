@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from lyrics.models import Song
 
 
 def index(request):
@@ -10,8 +11,8 @@ def index(request):
 
 
 def song_list(request):
-#    blog_list = ...
-#    paginator = Paginator(blog_list, 20)
+    song_list = Song.objects.all()
+    paginator = Paginator(song_list, 10)
     page = request.GET.get('page', None)
     if page:
         try:
@@ -21,8 +22,10 @@ def song_list(request):
     else:
         page_obj = paginator.page(1)
 
+
     params_dict = {
         'page_obj': page_obj,
+        'results_count': song_list.count()
     }
 
     return render(request, 'song_list.html', params_dict)

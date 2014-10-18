@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% load i18n staticfiles %}
+
+{% block content %}
+
+    <div class="navbar">
+        <div class="navbar-inner">
+            <div class="container">
+                <a class="brand">{% trans "LyricSearch" %}</a>
+                <div class="nav-collapse collapse">
+                    <form class="navbar-form">
+                        <input type="text" class="search_field">
+                        <button type="submit" class="btn">{% trans "Search" %}</button>
+                    </form>
+       
+                </div>
+            </div> <!-- container -->
+        </div> <!-- navbar inner -->
+    </div> <!-- navbar -->
+
+    <div class="results">
+        <div class="row-fluid">
+           <div class="result_text muted"><small>{% trans "Results"%}: {{ results_count }} (0.27 {% trans "sec" %}.)</small></div>
+        </div> <!-- result count row fluid -->
+
+        <div class="row-fluid">
+            {% for song in page_obj %}
+                <div class="container">
+                    <div class="well">
+                        <div class="media">
+  		            <div class="media-body">
+    		                <h4 class="media-heading"> <a href='#'>{{ song.title }}</a></h4>
+                                <p class="pull-right"> {% trans "artist"   %}: <a href='#'>{{ song.artist }}</a></p><BR>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis pharetra varius quam sit amet vulputate. 
+Aliquam in felis sit amet augue...</p>
+                                <ul class="inline muted">
+                                    <li>{% trans "duration" %}: {{ song.duration }} {% trans "sec" %}.</li>
+			        </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div> <!-- results row fluid -->
+
+        <div class="row-fluid">
+            <div class="pagination">
+		 <ul>
+		   {% if page_obj.has_previous %}
+		     <li><a href="?page={{ page_obj.previous_page_number }}">&laquo;</a></li>
+		   {% else %}
+		     <li class="disabled"><a href="#" onclick="javascript: return false;">&laquo;</a></li>
+		   {% endif %}
+                   <li class="active"><a href="#" onclick="javascript: return false;">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</a></li>
+		   {% if page_obj.has_next %}
+		       <li><a href="?page={{ page_obj.next_page_number }}">&raquo;</a></li>
+		   {% else %}
+		       <li class="disabled"><a href="#" onclick="javascript: return false;">&raquo;</a></li>
+		   {% endif %}
+		 </ul>
+            </div>
+        </div> <!-- pagination row fluid -->
+    </div> <!-- results -->
+
+{% endblock %}
