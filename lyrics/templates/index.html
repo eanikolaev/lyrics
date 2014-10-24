@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load i18n staticfiles %}
+
+{% block content %}
+
+    <div class="navbar">
+        <div class="navbar-inner">
+            <div class="container">
+                <a class="brand">{% trans "LyricSearch" %}</a>
+                <div class="nav-collapse collapse">
+                    <form class="navbar-form">
+                        <input type="text" class="search_field">
+                        <button type="submit" class="btn">{% trans "Search" %}</button>
+                    </form>
+       
+                </div>
+            </div> <!-- container -->
+        </div> <!-- navbar inner -->
+    </div> <!-- navbar -->
+
+{% endblock %}
