@@ -7,7 +7,9 @@
     3) if song is russian (>=50% rus words) and contains enough words (>=10) - save text into csv-file
 
     csv: id_of_song | flag | text
-    flag: russian / not_russian / not_processed / not_found
+    flag: russian / not_russian / not_processed / not_enough
+
+    not_enough : amount of words < 10
 """
 
 import requests
@@ -17,7 +19,7 @@ import argparse
 import os
 
 # set your token and id here
-TOKEN  = ""
+TOKEN  = "23786e66b29c1890e7df1f5204e3bd7b692e0749516c5025d4eef92df5a242e20ca0f13134115a329587f"
 FILE_WITH_TEXTS = "texts_of_songs.csv"
 
 from pymorphy import get_morph  # Морфологический анализатор https://pythonhosted.org/pymorphy/intro.html
@@ -99,11 +101,11 @@ class VkApi(Api):
     endpoint = "https://api.vk.com/method/{method}"
 
     def search_songs(self, query):
-        time.sleep(0.5)
-        json = self.call("audio.getLyrics", lyrics_id=query)        # [, param=value]
+        time.sleep(0.21)
         try:
+            json = self.call("audio.getLyrics", lyrics_id=query)        # [, param=value]
             return json.get("response", "").get("text", "")
-        except AttributeError:
+        except (AttributeError, requests.ConnectionError):
             return ""
 
 
@@ -112,7 +114,7 @@ def parse_args():
     Парсинг аргументов командной строки
     """
     c_l_parser = argparse.ArgumentParser(description='Сбор текстов песен')
-    #c_l_parser.add_argument('-f', dest='file_with_texts', type=str, required=True, help='Файл с текстами песен')
+    c_l_parser.add_argument('-n', dest='songs_to_analyze', type=int, default=1000, help='Файл с текстами песен')
     return c_l_parser.parse_args()
 
 
@@ -120,7 +122,7 @@ def main():
     api = VkApi(TOKEN)
 
     args = parse_args()
-    #file_with_texts = args.file_with_texts
+    songs_left_to_patse = args.songs_to_analyze
 
     csvfile = open(FILE_WITH_TEXTS, 'rb')
     reader = csv.reader(csvfile, delimiter=' ', quotechar='|', quoting=csv.QUOTE_MINIMAL)
@@ -139,14 +141,18 @@ def main():
             print "Unexpected error"
             return
 
-        if flag == 'not_processed':
+        if flag == 'not_processed' and songs_left_to_patse > 0:
             text = api.search_songs(text_id)
 
             # Detect language
             intersect, count = parse_data(text.upper())
-            if count < 10:
+            if count == 0:
                 flag = 'not_processed'
+            elif count < 10:
+                songs_left_to_patse -= 1
+                flag = 'not_enough'
             else:
+                songs_left_to_patse -= 1
                 if intersect*1.0/count >= 0.5:
                     flag = 'russian'
                 else:
