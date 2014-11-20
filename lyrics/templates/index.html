@@ -8,11 +8,10 @@
             <div class="container">
                 <a class="brand">{% trans "LyricSearch" %}</a>
                 <div class="nav-collapse collapse">
-                    <form class="navbar-form">
-                        <input type="text" class="search_field">
+                     <form action="." class="navbar-form" method="get">
+                        <input name="query" type="text" class="search_field" />
                         <button type="submit" class="btn">{% trans "Search" %}</button>
                     </form>
-       
                 </div>
             </div> <!-- container -->
         </div> <!-- navbar inner -->

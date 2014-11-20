@@ -8,8 +8,8 @@
             <div class="container">
                 <a class="brand">{% trans "LyricSearch" %}</a>
                 <div class="nav-collapse collapse">
-                    <form class="navbar-form">
-                        <input type="text" class="search_field">
+                    <form action="." class="navbar-form" method="get">
+                        <input name="query" type="text" class="search_field" />
                         <button type="submit" class="btn">{% trans "Search" %}</button>
                     </form>
        
@@ -20,7 +20,7 @@
 
     <div class="results">
         <div class="row-fluid">
-           <div class="result_text muted"><small>{% trans "Results"%}: {{ results_count }} (0.27 {% trans "sec" %}.)</small></div>
+           <div class="result_text muted"><small>{% trans "Results"%}: {{ results_count }} ({{ elapsed_time }} {% trans "sec" %}.)</small></div>
         </div> <!-- result count row fluid -->
 
         <div class="row-fluid">
@@ -29,10 +29,12 @@
                     <div class="well">
                         <div class="media">
   		            <div class="media-body">
-    		                <h4 class="media-heading"> <a href='#'>{{ song.title }}</a></h4>
-                                <p class="pull-right"> {% trans "artist"   %}: <a href='#'>{{ song.artist }}</a></p><BR>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis pharetra varius quam sit amet vulputate. 
-Aliquam in felis sit amet augue...</p>
+    		                <h4 class="media-heading"> <a href='#'>{{ song.title|truncatechars:40 }}</a></h4>
+                                <p class="pull-right"> {% trans "artist"   %}: <a href='#'>{{ song.artist|truncatechars:50 }}</a></p><BR>
+                                <p>
+                                     <!--a class="pull-left" href="#"><img src="{{ song.url }}" width="100" height="100" style="margin-right: 20px"/></a-->
+                                     {{ song.lyrics|truncatechars:250 }}
+                                </p>
                                 <ul class="inline muted">
                                     <li>{% trans "duration" %}: {{ song.duration }} {% trans "sec" %}.</li>
 			        </ul>
