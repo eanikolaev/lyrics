@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
+from django.core.urlresolvers import reverse
 
 
 class Song(models.Model):
@@ -12,6 +13,9 @@ class Song(models.Model):
 
     def __unicode__(self):
         return self.artist + ' - ' + "'" + self.title + "'"
+
+    def get_absolute_url(self):
+        return reverse('song', args=[str(self.id)])
 
     class Meta:
         verbose_name = _('song')

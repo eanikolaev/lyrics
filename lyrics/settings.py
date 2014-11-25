@@ -37,7 +37,8 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'south',
-    'lyrics'
+    'lyrics',
+    'endless_pagination'
 )
 
 MIDDLEWARE_CLASSES = (
@@ -90,4 +91,9 @@ STATICFILES_DIRS = (
 
 LOCALE_PATHS = (
     'lyrics/locale',
+)
+
+from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS
+TEMPLATE_CONTEXT_PROCESSORS += (
+    'django.core.context_processors.request',
 )

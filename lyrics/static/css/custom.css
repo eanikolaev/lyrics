@@ -24,6 +24,11 @@
     padding-left: 150px;
 }
 
+.song_detail {
+    padding-left: 150px;
+    width: 600px;
+}
+
 .search_field {
     min-width: 600px;
     margin-right: 5px;
