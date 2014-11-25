@@ -14,8 +14,8 @@ from wordlist import wordlist
 import argparse
 
 # set your token and id here
-TOKEN  = ""
-OUTPUT = "songs.csv"
+TOKEN  = "b0c874d4ffff221148f87c9e84be4bf3b95f7cd613068a932559594e98d0a6ff0be84bfaaa206d021dad1"
+OUTPUT = "songs1.csv"
 
 
 class Api(object):
@@ -32,6 +32,12 @@ class Api(object):
             response = requests.get(self.endpoint.format(method=method), params=request_params)
             if response.status_code != 200:
                 raise requests.exceptions.RequestException("Bad status code {}".format(response.status_code))
+            if response.json().get('error',''):
+                print request_params
+                print request_params['q']
+                print response.json()
+                print 'CAPTCHA NEEDED!!!'
+                exit()
             return response.json()
         except requests.exceptions.RequestException as re:
             print "A n API call failed with exception {}".format(re)
@@ -67,11 +73,25 @@ class VkApi(Api):
         #https://vk.com/dev/audio.search
         time.sleep(0.5)
         json = self.call("audio.search", q=query, lyrics='1', count='1000')
-        for song_json in json.get("response", ["0",])[1:]:
+        for song_json in json.get("response", ["0",])[1:]:            
             try:
                 yield self.json_to_song(song_json)
             except KeyError:
                 print "sth unexpected with song", song_json
+
+    def search_song_by_id(self, id):
+        #json = self.call("audio.search", query=query, lyrics='1', count='10', fields="aid,artist,title,duration,url")
+        #https://vk.com/dev/audio.search
+        time.sleep(0.5)
+        json = self.call("audio.search", q=query, lyrics='1', count='1000')
+        print json
+        exit()
+        for song_json in json.get("response", ["0",])[1:]:            
+            try:
+                yield self.json_to_song(song_json)
+            except KeyError:
+                print "sth unexpected with song", song_json
+
 
     @staticmethod
     def json_to_song(json):
@@ -85,7 +105,7 @@ def parse_args():
     Парсинг аргументов командной строки
     """
     c_l_parser = argparse.ArgumentParser(description='Сбор песен')
-    c_l_parser.add_argument('-f', dest='file_with_words', type=str, default='', help='Файл со словами')
+    c_l_parser.add_argument('-f',  dest='file_with_words',     type=str, default='',    help='Файл со словами')
     return c_l_parser.parse_args()
 
 
@@ -98,9 +118,9 @@ def main():
     args = parse_args()
     file_with_words = args.file_with_words
 
-    # Работа со списком слов
     if not file_with_words:
-        wl = wordlist
+    # Работа со списком слов
+        wl = wordlist[::-1]
     else:
         csvfile_with_words = open(file_with_words, 'rb')
         reader = csv.reader(csvfile_with_words, delimiter=' ', quotechar='|', quoting=csv.QUOTE_MINIMAL)
