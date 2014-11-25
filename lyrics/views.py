@@ -6,6 +6,12 @@ import time
 OK = 1
 ERROR = 0
 
+def transform_query(query):
+    if query and not ('and' in query.lower()) and not ('or' in query.lower()):
+        return query.replace(' ', ' AND ')
+
+    return query
+
 
 def round_time(seconds):
     return "%.2f" % seconds
@@ -29,6 +35,7 @@ def song_detail(request, song_id):
 def song_list(request):    
     start_time = time.time()
     query = request.GET.get('query','')
+    query = transform_query(query)
     if query:
         status, res = search(query.encode('utf-8'))
         if status == OK:
