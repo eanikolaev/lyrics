@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load i18n staticfiles %}
+
+{% block content %}
+       <div class="navbar">
+          <div class="navbar-inner">
+              <div class="container">
+                  <a class="brand" href={% url 'song_list' %}>{% trans "LyricSearch" %}</a>
+              </div> <!-- container -->
+          </div> <!-- navbar inner -->
+       </div> <!-- navbar -->
+
+       <div class="song_detail">
+           <h4>{{ song.title }}</h4>
+           <p class="pull-right"> {% trans "artist"   %}: {{ song.artist|truncatechars:50 }}</p><BR>
+           <p>
+               {{ song.lyrics|linebreaks }}
+           </p>
+           <ul class="inline muted">
+               <li>{% trans "duration" %}: {{ song.duration }} {% trans "sec" %}.</li>
+           </ul>
+       </div>
+    
+{% endblock %}

@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from lyrics.models import Song
 from search import search
@@ -18,6 +18,14 @@ def index(request):
     return render(request, 'index.html', params_dict)
 
 
+def song_detail(request, song_id):    
+    song = get_object_or_404(Song.objects.all(), id=song_id)
+    params_dict = {
+        'song': song
+    }
+    return render(request, 'song_detail.html', params_dict)
+
+
 def song_list(request):    
     start_time = time.time()
     query = request.GET.get('query','')
@@ -32,19 +40,9 @@ def song_list(request):
         song_list = []
         count = 0
 
-    paginator = Paginator(song_list, 10)
-    page = request.GET.get('page', None)
-    if page:
-        try:
-            page_obj = paginator.page(page)
-        except (PageNotAnInteger, EmptyPage) as e:
-            page_obj = paginator.page(1)
-    else:
-        page_obj = paginator.page(1)
-
 
     params_dict = {
-        'page_obj': page_obj,
+        'song_list': song_list,
         'results_count': count,
         'elapsed_time': round_time(time.time() - start_time)
     }
