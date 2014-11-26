@@ -332,7 +332,8 @@ def find_word(word):
         for e in index_element_from_db:
             print "-----------------найдено----------------"
             set_of_marked_words.add(e.term)
-            for s in Song.objects.filter(indexelement=e):
+#            for s in Song.objects.filter(indexelement=e):
+            for s in e.song.all():
                 set_of_contexts.add(s.id)
 
                # Добавим не только вариант нормализации, но и постинг-листы всех синонимов
