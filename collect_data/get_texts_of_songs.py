@@ -19,7 +19,7 @@ import argparse
 import os
 
 # set your token and id here
-TOKEN  = "0aeefbf4704243845df36ac67f25c587f23e48cd9a4f23c8aeab97561c43cf2de4802ca7dbec629743252"
+TOKEN  = ""
 FILE_WITH_TEXTS = "texts_of_songs.csv"
 
 from pymorphy import get_morph  # Морфологический анализатор https://pythonhosted.org/pymorphy/intro.html

@@ -10,6 +10,11 @@ class Song(models.Model):
     duration = models.IntegerField(_('duration'))
     url      = models.URLField(_('url'), max_length=100)
     lyrics   = models.TextField(_('lyrics'))
+    linked_movie = models.TextField(_('movie'), max_length=128, blank=True, null=True, default=None)
+    rude = models.BooleanField(_('rude'), default=False)
+
+    def am_i_song_from_movie(self):
+        return self.linked_movie is not None
 
     def __unicode__(self):
         return self.artist + ' - ' + "'" + self.title + "'"
@@ -26,3 +31,13 @@ class Song(models.Model):
 class IndexElement(models.Model):
     term = models.CharField(_('term'), unique=True, max_length=100)
     song = models.ManyToManyField(Song)
+    synonyms = models.ManyToManyField("self", symmetrical=False, related_name='im_syn_of')
+
+    def __unicode__(self):
+        return self.term
+
+    def get_linked_songs_amount(self):
+        return len(self.song.objects.all())
+
+    class Meta:
+        ordering = ['term', ]
